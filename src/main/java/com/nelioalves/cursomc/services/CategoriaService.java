@@ -1,8 +1,7 @@
 package com.nelioalves.cursomc.services;
 
+import java.util.List;
 import java.util.Optional;
-
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -30,24 +29,25 @@ public class CategoriaService {
 		return repo.save(obj);
 	}
 
-	public Categoria update(Categoria obj) {	
+	public Categoria update(Categoria obj) {
 		buscar(obj.getId());
 		return repo.save(obj);
 	}
 
 	public void delete(Integer id) {
-		
+
 		buscar(id);
-		
+
 		try {
 			repo.deleteById(id);
-		}
-		catch (DataIntegrityViolationException e) {
+		} catch (DataIntegrityViolationException e) {
 			throw new DataIntegrityException("Não se pode excluir categoria que possui produtos");
 		}
-		
-		
-		
+
+	}
+
+	public List<Categoria> buscaTodos() {
+		return repo.findAll();
 	}
 
 }
